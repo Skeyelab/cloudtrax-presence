@@ -18,6 +18,7 @@ get '/collections/?' do
   settings.mongo_db.database.collection_names.to_json
 end
 
+
 helpers do
   # a helper method to turn a string ID
   # representation into a BSON::ObjectId
