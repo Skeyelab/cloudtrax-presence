@@ -9,7 +9,7 @@ require 'dotenv'
 Dotenv.load
 
 configure do
-  db = Mongo::Client.new( ENV['MONGODB_URI'])
+  db = Mongo::Client.new( ENV['MONGO_URI'])
   set :mongo_db, db[:pings]
 end
 
