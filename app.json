@@ -1,5 +1,6 @@
 {
   "name": "Cloudtrax Presence Collector",
+  "repository": "https://github.com/Skeyelab/cloudtrax-presence",
   "addons" : [
   {
       "plan": "mongolab:sandbox",
