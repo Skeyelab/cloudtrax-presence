@@ -56,6 +56,7 @@ end
 # then return the full document
 post '/new_document/?' do
   params = JSON.parse request.body.read
+  params[:timestamp] = Time.now
   content_type :json
   db = settings.mongo_db
   result = db.insert_one params
