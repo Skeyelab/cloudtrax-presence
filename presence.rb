@@ -5,9 +5,12 @@ require 'json/ext' # required for .to_json
 require 'json'
 require 'pry'
 
+require 'dotenv'
+Dotenv.load
+
 configure do
-  db = Mongo::Client.new([ '127.0.0.1:27017' ], :database => 'tracking')
-  set :mongo_db, db[:test]
+  db = Mongo::Client.new([ ENV['MONGODB_URI'] ], :database => 'CloudTrax_Prescence_Logger')
+  set :mongo_db, db[:pings]
 end
 
 get '/collections/?' do

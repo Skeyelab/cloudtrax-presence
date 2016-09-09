@@ -4,3 +4,5 @@ ruby "2.3.0"
 
 gem 'sinatra'
 gem 'mongo'
+gem 'pry'
+gem 'dotenv'
