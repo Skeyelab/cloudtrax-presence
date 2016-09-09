@@ -10,7 +10,8 @@ Dotenv.load
 
 configure do
   db = Mongo::Client.new( ENV['MONGO_URI'])
-  set :mongo_db, db[:pings]
+  set :pings_db, db[:pings]
+  set :counts_db, db[:counts]
 end
 
 helpers do
@@ -29,7 +30,7 @@ helpers do
     if id.nil?
       {}.to_json
     else
-      document = settings.mongo_db.find(:_id => id).to_a.first
+      document = settings.pings_db.find(:_id => id).to_a.first
       (document || {}).to_json
     end
   end
@@ -41,13 +42,25 @@ end
 
 get '/collections/?' do
   content_type :json
-  settings.mongo_db.database.collection_names.to_json
+  settings.pings_db.database.collection_names.to_json
+end
+
+get '/collect_counts' do
+  content_type :json
+  settings.pings_db.distinct("network_id").each do |nid|
+  binding.pry
+
+    doc = {network_id: nid,
+           count: settings.pings_db.find({ network_id: nid}).count
+           }
+    settings.counts_db.insert_one doc
+  end
 end
 
 # list all documents in the test collection
 get '/pings/?' do
   content_type :json
-  settings.mongo_db.find.to_a.to_json
+  settings.pings_db.find.to_a.to_json
 end
 
 # find a document by its ID
@@ -62,7 +75,7 @@ post '/ping/?' do
   params = JSON.parse request.body.read
   params[:timestamp] = Time.now.to_i
   content_type :json
-  db = settings.mongo_db
+  db = settings.pings_db
   result = db.insert_one params
   db.find(:_id => result.inserted_id).to_a.first.to_json
 end
