@@ -14,12 +14,14 @@ GEM
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
+    rake (11.2.2)
     sinatra (1.4.7)
       rack (~> 1.5)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
     slop (3.6.0)
     tilt (2.0.5)
+    version (1.0.0)
 
 PLATFORMS
   ruby
@@ -28,7 +30,9 @@ DEPENDENCIES
   dotenv
   mongo
   pry
+  rake
   sinatra
+  version
 
 RUBY VERSION
    ruby 2.3.0p0
