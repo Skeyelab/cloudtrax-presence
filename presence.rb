@@ -9,7 +9,7 @@ require 'dotenv'
 Dotenv.load
 
 configure do
-  db = Mongo::Client.new( ENV['MONGODB_URI'] , :database => 'CloudTrax_Prescence_Logger')
+  db = Mongo::Client.new( ENV['MONGODB_URI'])
   set :mongo_db, db[:pings]
 end
 
